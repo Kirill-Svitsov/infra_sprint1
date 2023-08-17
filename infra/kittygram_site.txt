@@ -1,4 +1,4 @@
-IP: 51.250.100.142
+<IP>: <51.250.100.142>
 name_taski: https://blackaquitance.hopto.org/
 name_kittygram: https://kittygramsvitsov.hopto.org
 login: svitsov
