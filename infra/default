@@ -1,91 +1,56 @@
 server {
     listen 80;
-    server_name 51.250.100.142
-    server_tokens off;
-
-    server_name 51.250.100.142 blackaquitance.hopto.org;
-
-    location /admin/ {
-
-        proxy_pass http://127.0.0.1:8000;
-
-    }
-
-    location /api/ {
-
-        proxy_pass http://127.0.0.1:8000;
-
-    }
-
-    location / {
-
-        root   /var/www/taski;
-
-        index  index.html index.htm;
-
-        try_files $uri /index.html;
-
-    }
-
-    listen 443 ssl; # managed by Certbot
-
-    ssl_certificate /etc/letsencrypt/live/blackaquitance.hopto.org/fullchain.pem; # managed by Certbot
-
-    ssl_certificate_key /etc/letsencrypt/live/blackaquitance.hopto.org/privkey.pem; # managed by Certbot
-
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
+    server_name 51.250.100.142;
+    return 301 https://$host$request_uri;
 }
 server {
-
-    listen 80;
-    server_name 51.250.100.142
+    listen 443 ssl;
+    server_name 51.250.100.142 blackaquitance.hopto.org;
     server_tokens off;
-
-    server_name 51.250.100.142 kittygramsvitsov.hopto.org;
-
     location /admin/ {
-
-        proxy_pass http://127.0.0.1:8080;
-
-        client_max_body_size 20M;
-
-    } 
-
+        proxy_pass http://127.0.0.1:8000;
+    }
     location /api/ {
-
-        proxy_pass http://127.0.0.1:8080;
-
-        client_max_body_size 20M;
-
-    } 
-
-    location /media/ {
-
-        alias /var/www/kittygram/media/;
-
-        expires max;
-
-    } 
+        proxy_pass http://127.0.0.1:8000;
+    }
     location / {
-
-        root   /var/www/kittygram;
-
+        root   /var/www/taski;
         index  index.html index.htm;
-
         try_files $uri /index.html;
-
-    } 
-    listen 443 ssl; # managed by Certbot
-
-    ssl_certificate /etc/letsencrypt/live/kittygramsvitsov.hopto.org/fullchain.pem; # managed by   Certbot
-
-    ssl_certificate_key /etc/letsencrypt/live/kittygramsvitsov.hopto.org/privkey.pem; # managed by Certbot
-
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
-} 
+    }
+    ssl_certificate /etc/letsencrypt/live/blackaquitance.hopto.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/blackaquitance.hopto.org/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+server {
+    listen 80;
+    server_name 51.250.100.142;
+    return 301 https://$host$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name 51.250.100.142 kittygramsvitsov.hopto.org;
+    server_tokens off;
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8080;
+        client_max_body_size 20M;
+    }
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+        client_max_body_size 20M;
+    }
+    location /media/ {
+        alias /var/www/kittygram/media/;
+        expires max;
+    }
+    location / {
+        root   /var/www/kittygram;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+    ssl_certificate /etc/letsencrypt/live/kittygramsvitsov.hopto.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/kittygramsvitsov.hopto.org/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
