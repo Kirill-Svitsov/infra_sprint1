@@ -1,9 +1,4 @@
 server {
-    listen 80;
-    server_name 51.250.100.142;
-    return 301 https://$host$request_uri;
-}
-server {
     listen 443 ssl;
     server_name 51.250.100.142 blackaquitance.hopto.org;
     server_tokens off;
@@ -23,11 +18,13 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 }
+
 server {
     listen 80;
-    server_name 51.250.100.142;
+    server_name 51.250.100.142 kittygramsvitsov.hopto.org blackaquitance.hopto.org;
     return 301 https://$host$request_uri;
 }
+
 server {
     listen 443 ssl;
     server_name 51.250.100.142 kittygramsvitsov.hopto.org;
